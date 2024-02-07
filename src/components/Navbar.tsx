@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 interface NavbarProps {
@@ -8,15 +9,16 @@ interface NavbarProps {
 const Navbar = ({ isAuthenticated, onLogout }: NavbarProps) => {
   const handleLogout = () => {
     if (onLogout) {
-      onLogout(); // Call onLogout if it exists
+      console.log("nav-logout");
+      onLogout();
     }
   };
-
+  useEffect(() => {}, [isAuthenticated]);
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
         <div className="logo">
-          <Link to="/home">Your Logo</Link>
+          <Link to="/">Your Logo</Link>
         </div>
         <div className="search-bar">
           <input type="text" placeholder="Search..." />

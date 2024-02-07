@@ -1,15 +1,29 @@
-// AuthService.ts
 import axios from "axios";
-import { useState } from "react";
-export const login = async (username: string, password: string) => {
+
+export const login = async (email: string, password: string) => {
   // Send login request to the server
-  const [form, setForm] = useState({ email: username, password: password });
+  console.log("inside login fuction");
+  const form = {
+    email: email,
+    password: password,
+  };
+  const data = JSON.stringify(form);
+
   try {
-    const response = await axios.post("http://localhost:8080/login", form);
+    const response = await axios.post("http://localhost:8080/login", data, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const info = {
+      user: response.data.email,
+      token: response.data.token,
+      role: response.data.collection[0].authority,
+    };
+    const user = JSON.stringify(info);
+    localStorage.setItem("user", user);
 
-    const { token } = response.data;
-
-    localStorage.setItem("token", token);
+    return true;
   } catch (error) {
     alert("Invalid email or password");
     return false;
@@ -19,10 +33,12 @@ export const login = async (username: string, password: string) => {
 export const logout = async () => {
   try {
     const response = await axios.post("http://localhost:8080/user/logout");
-
-    localStorage.removeItem("token");
+    console.log("inside auth");
+    localStorage.removeItem("user");
   } catch (error) {
     alert("Logout Failed");
+    return false;
   }
   alert("User Logged out");
+  return true;
 };
