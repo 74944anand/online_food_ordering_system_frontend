@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-
+import logo from "../assets/logo3.png";
 interface NavbarProps {
   isAuthenticated: boolean;
   onLogout?: () => void; // Make onLogout prop optional
@@ -15,41 +15,55 @@ const Navbar = ({ isAuthenticated, onLogout }: NavbarProps) => {
   };
   useEffect(() => {}, [isAuthenticated]);
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <div className="container-fluid">
-        <div className="logo">
-          <Link to="/">Your Logo</Link>
+    <nav className="navBar">
+      <div className="navItem">
+        <div>
+          <Link to="/">
+            <img id="logo" src={logo} alt="" />
+          </Link>
         </div>
-        <div className="search-bar">
-          <input type="text" placeholder="Search..." />
-          <button>Search</button>
+        <div>
+          <a href="/" id="brandName">
+            NoWait
+          </a>
         </div>
+        <div className="navdiv">
+          <ul>
+            {isAuthenticated ? (
+              <div className="navTab">
+                <div>
+                  <Link className="navLink" to="/orders">
+                    Orders
+                  </Link>
+                </div>
+                <div>
+                  <Link className="navLink" to="/cart">
+                    Cart
+                  </Link>
+                </div>
+                <div>
+                  <Link className="navLink" to="/user">
+                    Profile
+                  </Link>
+                </div>
 
-        <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-          {isAuthenticated ? (
-            <>
-              <Link className="nav-item" to="/orders">
-                Orders
-              </Link>
-              <Link className="nav-item" to="/cart">
-                Cart
-              </Link>
-              <Link className="nav-item" to="/profile">
-                Profile
-              </Link>
-              <button onClick={handleLogout}>Logout</button>
-            </>
-          ) : (
-            <>
-              <Link className="nav-item" to="/login">
-                Login
-              </Link>
-              <Link className="nav-item" to="/signup">
-                SignUp
-              </Link>
-            </>
-          )}
-        </ul>
+                <Link className="navLink" onClick={handleLogout} to="/login">
+                  Logout
+                </Link>
+              </div>
+            ) : (
+              <div className="navTab">
+                <Link className="navLink" to="/login">
+                  Login
+                </Link>
+
+                <Link className="navLink" to="/signup">
+                  SignUp
+                </Link>
+              </div>
+            )}
+          </ul>
+        </div>
       </div>
     </nav>
   );

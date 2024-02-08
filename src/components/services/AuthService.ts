@@ -15,14 +15,10 @@ export const login = async (email: string, password: string) => {
         "Content-Type": "application/json",
       },
     });
-    const info = {
-      user: response.data.email,
-      token: response.data.token,
-      role: response.data.collection[0].authority,
-    };
-    const user = JSON.stringify(info);
-    localStorage.setItem("user", user);
 
+    localStorage.setItem("user", response.data.email);
+    localStorage.setItem("token", response.data.token);
+    localStorage.setItem("role", response.data.collection[0].authority);
     return true;
   } catch (error) {
     alert("Invalid email or password");
@@ -39,6 +35,5 @@ export const logout = async () => {
     alert("Logout Failed");
     return false;
   }
-  alert("User Logged out");
   return true;
 };

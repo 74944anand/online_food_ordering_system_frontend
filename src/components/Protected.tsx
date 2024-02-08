@@ -14,7 +14,7 @@ const Protected = (props: ProtectedProps) => {
     console.log("navigated");
 
     if (!login) {
-      navigate("/login");
+      navigate("/");
     }
   }, [isAuthenticated]);
   return (

@@ -41,35 +41,46 @@ const LoginPage = ({ setIsAuthenticated }: NavbarProps) => {
   };
 
   return (
-    <div>
+    <div id="loginForm">
       <h2>Login Page</h2>
-      {error && <div className="text-danger">{error}</div>}
+
       <form onSubmit={handleLogin}>
-        <div>
-          <label htmlFor="email">Email: </label>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            value={form.email}
-            onChange={handleInputChange}
-            required
-            autoComplete="email"
-          />
+        <div id="formData">
+          {error && <div id="errorText">{error}</div>}
+          <div>
+            <label htmlFor="email">Email: </label>
+          </div>
+          <div className="input">
+            <input
+              type="email"
+              name="email"
+              id="email"
+              value={form.email}
+              onChange={handleInputChange}
+              required
+              placeholder="Enter Email"
+              autoComplete="email"
+            />
+          </div>
+          <div>
+            <label htmlFor="password">Password: </label>
+          </div>
+          <div className="input">
+            <input
+              type="password"
+              name="password"
+              id="password"
+              value={form.password}
+              onChange={handleInputChange}
+              required
+              placeholder="Enter Password"
+              autoComplete="password"
+            />
+          </div>
+          <button id="loginbtn" type="submit">
+            Login
+          </button>
         </div>
-        <div>
-          <label htmlFor="password">Password: </label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            value={form.password}
-            onChange={handleInputChange}
-            required
-            autoComplete="password"
-          />
-        </div>
-        <button type="submit">Login</button>
       </form>
     </div>
   );

@@ -1,0 +1,83 @@
+#logo {
+  padding: 5px;
+}
+
+#brandName {
+  color: hwb(0 42% 7%);
+  font-weight: 800;
+  font-size: 25px;
+  margin-left: 5px;
+  text-decoration: none;
+  margin-top: 10px;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+.navBar {
+  background-color: aliceblue;
+  height: 60px;
+  width: 100%;
+}
+
+.navdiv {
+  display: flex;
+  justify-content: right;
+  width: 100%;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+}
+
+.navTab {
+  display: flex;
+}
+.navLink {
+  margin-right: 30px;
+  text-decoration: none;
+  font-size: large;
+  color: black;
+}
+
+/* Login & SignUp Form*/
+#errorText {
+  color: red;
+}
+
+#loginForm {
+  width: 40%;
+  height: auto;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 5px;
+  margin-left: 30%;
+  background-color: aliceblue;
+}
+
+#loginForm > h2 {
+  text-align: center;
+}
+
+#formData {
+  margin-left: 20%;
+}
+
+.input > input {
+  padding: 5px;
+  margin-bottom: 10px;
+  width: 80%;
+  background: transparent;
+  outline: none;
+  border: 0;
+  border-bottom: 1px solid black;
+}
+
+#loginbtn {
+  padding: 10px;
+  width: 100px;
+  border: 0;
+  background: transparent;
+  background-color: cadetblue;
+  border-radius: 30px;
+  cursor: pointer;
+}

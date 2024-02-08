@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 interface SignupForm {
@@ -10,6 +11,7 @@ interface SignupForm {
 }
 
 const SignupPage = () => {
+  const navigate = useNavigate();
   const [form, setForm] = useState<SignupForm>({
     email: "",
     contactNo: "",
@@ -33,73 +35,77 @@ const SignupPage = () => {
       return;
     }
     try {
-      const response = await axios.post("http://localhost:8080/signup", form);
+      const response = await axios.post("http://localhost:8080/signup", form, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
     } catch (error) {
       alert("User alredy Registered");
     }
     alert("Registration Successful!");
     console.log("Form submitted:", form);
+    navigate("/login");
   };
 
   return (
-    <div>
+    <div id="loginForm">
       <h2>Signup</h2>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>Email:</label>
-          <input
-            type="email"
-            name="email"
-            value={form.email}
-            onChange={handleInputChange}
-            required
-          />
+        <div id="formData">
+          <div>
+            <label>Email:</label>
+            <div className="input">
+              <input
+                type="email"
+                name="email"
+                value={form.email}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+          </div>
+          <div>
+            <label>Contact Number:</label>
+            <div className="input">
+              <input
+                type="text"
+                name="contactNo"
+                value={form.contactNo}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+          </div>
+          {error && <div style={{ color: "red" }}>{error}</div>}
+          <div>
+            <label>Password:</label>
+            <div className="input">
+              <input
+                type="password"
+                name="password"
+                value={form.password}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+          </div>
+          <div>
+            <label>Confirm Password:</label>
+            <div className="input">
+              <input
+                type="text"
+                name="confirmPassword"
+                value={form.confirmPassword}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+          </div>
+          <button id="loginbtn" type="submit">
+            Signup
+          </button>
         </div>
-        <div>
-          <label>Contact Number:</label>
-          <input
-            type="text"
-            name="contactNo"
-            value={form.contactNo}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-        <div>
-          <label>Password:</label>
-          <input
-            type="password"
-            name="password"
-            value={form.password}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-        <div>
-          <label>Confirm Password:</label>
-          <input
-            type="password"
-            name="confirmPassword"
-            value={form.confirmPassword}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-        <div>
-          <label>Role:</label>
-          <select
-            name="role"
-            value={form.role}
-            onChange={handleInputChange}
-            required
-          >
-            <option value="">Select Role</option>
-            <option value="user">User</option>
-            <option value="admin">Admin</option>
-          </select>
-        </div>
-        <button type="submit">Signup</button>
-        {error && <div style={{ color: "red" }}>{error}</div>}
       </form>
     </div>
   );
