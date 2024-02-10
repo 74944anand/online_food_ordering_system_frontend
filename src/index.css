@@ -72,7 +72,8 @@
   border-bottom: 1px solid black;
 }
 
-#loginbtn {
+#loginbtn,
+.profilebtn {
   padding: 10px;
   width: 100px;
   border: 0;
@@ -80,4 +81,26 @@
   background-color: cadetblue;
   border-radius: 30px;
   cursor: pointer;
+}
+
+/* Profile*/
+.profilePic {
+  display: flex;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 1px solid black;
+  background-color: aqua;
+}
+
+#picture {
+  display: flex;
+  justify-content: center;
+  text-align: -webkit-center;
+  cursor: pointer;
+}
+
+/*Order*/
+#orderTable > th {
+  margin-right: 10px;
 }

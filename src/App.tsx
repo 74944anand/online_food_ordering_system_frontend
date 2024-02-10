@@ -10,6 +10,7 @@ import Cart from "./components/ProtetcedComponent/Cart";
 import Profile from "./components/ProtetcedComponent/Profile";
 import { logout } from "./components/services/AuthService";
 import LandingPage from "./components/LandingPage";
+import UpdateProfilePhoto from "./components/ProtetcedComponent/UpdateProfilePhoto";
 
 const App = () => {
   const user = localStorage.getItem("user");
@@ -60,6 +61,15 @@ const App = () => {
               <Protected
                 isAuthenticated={isAuthenticated}
                 Component={Profile}
+              />
+            }
+          />
+          <Route
+            path="/updateimage"
+            element={
+              <Protected
+                isAuthenticated={isAuthenticated}
+                Component={UpdateProfilePhoto}
               />
             }
           />

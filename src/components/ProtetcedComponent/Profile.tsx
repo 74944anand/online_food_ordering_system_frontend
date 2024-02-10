@@ -1,5 +1,6 @@
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState, useEffect, ChangeEvent } from "react";
+import { useNavigate } from "react-router-dom"; // Import useHistory hook
 
 const Profile = () => {
   const [userData, setUserData] = useState({
@@ -7,13 +8,13 @@ const Profile = () => {
     lastName: "",
     email: "",
     contactNo: "",
-    sellerBrandImage: "",
+    profilePhoto: null, // Initialize sellerBrandImage as null
   });
   const [newFirstName, setNewFirstName] = useState("");
   const [newLastName, setNewLastName] = useState("");
-  const [isEditingFirstName, setIsEditingFirstName] = useState(false);
-  const [isEditingLastName, setIsEditingLastName] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
   const token = localStorage.getItem("token");
+  const navigate = useNavigate(); // Initialize useHistory hook
 
   useEffect(() => {
     if (token) {
@@ -31,39 +32,37 @@ const Profile = () => {
       const response = await axios.get("http://localhost:8080/user", config);
       if (response) {
         const userData = response.data;
+        console.log(response.data);
+
         setUserData(userData);
+        setNewFirstName(userData.firstName);
+        setNewLastName(userData.lastName);
       }
     } catch (error) {
       console.error("Error:", error);
     }
   };
 
-  const handleFirstNameChange = (e) => {
-    setNewFirstName(e.target.value);
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    if (name === "firstName") {
+      setNewFirstName(value);
+    } else if (name === "lastName") {
+      setNewLastName(value);
+    }
   };
 
-  const handleLastNameChange = (e) => {
-    setNewLastName(e.target.value);
-  };
-
-  const handleEditFirstName = () => {
-    setNewFirstName(userData.firstName);
-    setIsEditingFirstName(true);
-  };
-
-  const handleEditLastName = () => {
-    setNewLastName(userData.lastName);
-    setIsEditingLastName(true);
+  const handleEdit = () => {
+    setIsEditing(true);
   };
 
   const cancelEdit = () => {
-    setNewFirstName("");
-    setNewLastName("");
-    setIsEditingFirstName(false);
-    setIsEditingLastName(false);
+    setIsEditing(false);
+    setNewFirstName(userData.firstName);
+    setNewLastName(userData.lastName);
   };
 
-  const updateFirstName = async () => {
+  const updateProfile = async () => {
     try {
       const config = {
         headers: {
@@ -71,106 +70,94 @@ const Profile = () => {
         },
       };
       const response = await axios.put(
-        "http://localhost:8080/api/users/updateFirstName",
-        { firstName: newFirstName },
+        "http://localhost:8080/user/updateName",
+        { firstName: newFirstName, lastName: newLastName },
         config
       );
       if (response) {
-        console.log("First name updated successfully");
+        console.log("Profile updated successfully");
         setUserData((prevUserData) => ({
           ...prevUserData,
           firstName: newFirstName,
-        }));
-        setIsEditingFirstName(false);
-      }
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
-
-  const updateLastName = async () => {
-    try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      };
-      const response = await axios.put(
-        "http://localhost:8080/api/users/updateLastName",
-        { lastName: newLastName },
-        config
-      );
-      if (response) {
-        console.log("Last name updated successfully");
-        setUserData((prevUserData) => ({
-          ...prevUserData,
           lastName: newLastName,
         }));
-        setIsEditingLastName(false);
+        setIsEditing(false);
       }
     } catch (error) {
       console.error("Error:", error);
     }
   };
 
-  const { firstName, lastName, email, contactNo, sellerBrandImage } = userData;
+  const handleImageClick = () => {
+    // Redirect to update image page when the image is clicked
+    navigate("/updateimage");
+  };
+
+  const { firstName, lastName, email, contactNo, profilePhoto } = userData;
+  console.log(profilePhoto);
 
   return (
-    <div>
-      <button onClick={getProfile}>Get Profile</button>
+    <div id="loginForm">
       <div>
-        <h2>User Profile</h2>
-        <div>
-          <strong>First Name:</strong>{" "}
-          {isEditingFirstName ? (
-            <input
-              type="text"
-              value={newFirstName}
-              onChange={handleFirstNameChange}
+        <div id="picture">
+          {/* Show the sellerBrandImage if available */}
+          {profilePhoto && (
+            <img
+              className="profilePic"
+              src={`data:image/jpeg;base64,${profilePhoto}`} // Assuming sellerBrandImage is a base64 encoded string
+              alt="Seller Brand"
+              onClick={handleImageClick} // Add onClick handler to handle image click
+              style={{ cursor: "pointer" }} // Change cursor to pointer when hovering over the image
             />
-          ) : (
-            <span>{firstName}</span>
           )}
-          {isEditingFirstName ? (
+        </div>
+        <div id="formData">
+          <div>
+            <strong>First Name:</strong>{" "}
+            {isEditing ? (
+              <input
+                type="text"
+                name="firstName"
+                value={newFirstName}
+                onChange={handleInputChange}
+              />
+            ) : (
+              <span>{firstName}</span>
+            )}
+          </div>
+          <div>
+            <strong>Last Name:</strong>{" "}
+            {isEditing ? (
+              <input
+                type="text"
+                name="lastName"
+                value={newLastName}
+                onChange={handleInputChange}
+              />
+            ) : (
+              <span>{lastName}</span>
+            )}
+          </div>
+          {isEditing ? (
             <>
-              <button onClick={updateFirstName}>Save</button>
-              <button onClick={cancelEdit}>Cancel</button>
+              <button className="profilebtn" onClick={updateProfile}>
+                Save
+              </button>
+              <button className="profilebtn" onClick={cancelEdit}>
+                Cancel
+              </button>
             </>
           ) : (
-            <button onClick={handleEditFirstName}>Edit</button>
+            <button className="profilebtn" onClick={handleEdit}>
+              Edit
+            </button>
           )}
-        </div>
-        <div>
-          <strong>Last Name:</strong>{" "}
-          {isEditingLastName ? (
-            <input
-              type="text"
-              value={newLastName}
-              onChange={handleLastNameChange}
-            />
-          ) : (
-            <span>{lastName}</span>
-          )}
-          {isEditingLastName ? (
-            <>
-              <button onClick={updateLastName}>Save</button>
-              <button onClick={cancelEdit}>Cancel</button>
-            </>
-          ) : (
-            <button onClick={handleEditLastName}>Edit</button>
-          )}
-        </div>
-        <div>
-          <strong>Email:</strong> {email}
-        </div>
-        <div>
-          <strong>Contact Number:</strong> {contactNo}
-        </div>
-        <div>
-          <strong>Seller Brand Image:</strong>{" "}
-          {sellerBrandImage && (
-            <img src={sellerBrandImage} alt="Seller Brand" />
-          )}
+          <div>
+            <strong>Email:</strong> {email}
+          </div>
+          <div>
+            <strong>Contact Number:</strong> {contactNo}
+          </div>
         </div>
       </div>
     </div>
