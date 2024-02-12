@@ -1,3 +1,6 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 #logo {
   padding: 5px;
 }
@@ -103,4 +106,227 @@
 /*Order*/
 #orderTable > th {
   margin-right: 10px;
+  border: 1px solid black;
 }
+
+/*Landing Page*/
+
+#landingPage {
+  margin-top: 10px;
+  margin-left: 50px;
+  margin-right: 50px;
+  height: 500px;
+  background-color: aliceblue;
+  display: flex;
+}
+
+#headLine {
+  text-align: center;
+  margin-top: 40px;
+  margin-left: 40px;
+  align-items: center;
+}
+
+#span1 {
+  color: orangered;
+}
+
+#image1 {
+  margin-top: 20px;
+  margin-left: 70px;
+}
+.btn {
+  background-color: orangered;
+  border: 0;
+  outline: 0;
+  margin-top: 50px;
+  margin-left: 120px;
+  color: white;
+  border-radius: 25px;
+  width: 150px;
+  padding: 20px;
+  cursor: pointer;
+}
+
+.desc {
+  margin-left: 40px;
+}
+
+/* HoemPage */
+
+#hero {
+  max-width: 1640px;
+  margin: auto;
+  padding: 40px;
+}
+
+#container {
+  position: relative;
+  max-height: 570px;
+}
+
+#heroBody {
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  color: grey;
+  background-color: black;
+  opacity: 0.7;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.heroHeading {
+  padding: 0 40px;
+  font-weight: 800;
+  font-size: 100px;
+  color: orangered;
+}
+
+#heroImage {
+  width: 100%;
+  height: 570px;
+}
+
+/* headlineCard */
+
+#headlineCard {
+  margin: 0 auto;
+  padding: 40px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 3 columns with equal width */
+  gap: 10px;
+  height: 400px;
+  width: 100%;
+}
+
+.itemContainer {
+  position: relative;
+  border-radius: 40px;
+  overflow: hidden;
+}
+
+.item {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  opacity: 0.65;
+  color: white;
+  border-radius: 25px;
+}
+
+.text1 {
+  font-weight: 800;
+  font-size: 30px;
+  padding: 0 20px;
+  padding-top: 10px;
+}
+
+.text2 {
+  padding: 0 20px;
+}
+
+.itemBtn {
+  border: white;
+  background-color: white;
+  color: black;
+  position: absolute;
+  border-radius: 25px;
+  margin-left: 40px;
+  bottom: 40px;
+  padding: 10px 20px;
+}
+
+.headLineImg {
+  max-height: 100%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* foodContainer */
+
+.foodContainer,
+.categoryContiner {
+  margin: 0;
+  width: 100%;
+  padding: 12px 40px;
+}
+
+.foodContainer > h1,
+.categoryContiner > h1 {
+  color: orangered;
+  font-weight: bold;
+  text-align: center;
+}
+
+.filterRow {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.filterHeading {
+  font-weight: bold;
+  color: grey;
+}
+
+.filterBtnDiv {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.filterBtn {
+  margin: 10px;
+  border: orangered;
+  color: orangered;
+  padding: 3px 25px;
+  border-radius: 10px;
+}
+
+.filterBtn:hover {
+  background-color: orangered;
+  color: white;
+}
+
+.gridView {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 3 columns with equal width */
+  gap: 10px;
+}
+
+.foodDiv {
+  margin-top: 10px;
+  border: 1px solid rgb(173, 171, 171);
+  box-shadow: 1px 1px 0.5;
+  border-radius: 20px;
+}
+
+.foodDiv > img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+.foodName {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+.foodName > p {
+  font-weight: bold;
+}
+
+.foodName > p > span {
+  background-color: orangered;
+  color: white;
+  padding: 3px;
+  border-radius: 10px;
+}
+
+/* Category */

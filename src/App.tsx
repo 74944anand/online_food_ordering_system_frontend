@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "bootstrap/dist/css/bootstrap.css"
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginPage from "./components/loginLogout/LoginPage";
 import HomePage from "./components/HomePage";

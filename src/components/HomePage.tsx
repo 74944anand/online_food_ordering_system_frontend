@@ -1,8 +1,15 @@
+import Category from "../Category";
+import Food from "../Food";
+import HeadlineCard from "../HeadlineCard";
+import Hero from "../Hero";
+
 const HomePage = () => {
   return (
     <div>
-      <h2>Home Page</h2>
-      <p>Welcome!</p>
+      <Hero />
+      <HeadlineCard />
+      <Food />
+      <Category/>
     </div>
   );
 };

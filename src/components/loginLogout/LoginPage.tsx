@@ -34,7 +34,7 @@ const LoginPage = ({ setIsAuthenticated }: NavbarProps) => {
     const token = await login(email, password);
     if (token) {
       setIsAuthenticated(true);
-      navigate("/");
+      navigate("/home");
     } else {
       setError("Invalid email or password");
     }
